@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+<style>
+	html {
+		font-size: 21px;
+	}
+	body , body * , html {
+		box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+	}
+	body * {
+		line-height: 1.5
+	}
+	.wrapper {
+		margin: 40px auto;
+		width: calc(100% - 40px);
+		max-width: 600px;
+	}
+	.wrapper > div {
+		margin-top: 20px;
+	}
+	input {
+		width: 100%;
+		padding: 10px;
+	}
+</style>
+
+<script type="text/javascript" src="jquery-3.6.4.min.js"></script>
+<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+$("input").on("input", function(){
+	let i = Number($(this).val())
+	let arr = [i]
+	if (i > 0) {
+		while (i !== 1) {
+			if (i%2 == 0) {
+				i = i/2
+			} else {
+				i = (i*3) + 1
+			}
+			arr.push(i)
+		}
+		console.log()
+	}
+	$(".result").html(arr.join(" , "))
+
+	var data = [];
+	var dataSeries = { type: "line" };
+	var dataPoints = [];
+	for (var g = 0; g < arr.length; g += 1) {
+		dataPoints.push({
+			x: g,
+			y: arr[g]
+		});
+	}
+	dataSeries.dataPoints = dataPoints;
+	data.push(dataSeries);
+
+	var options = {
+		zoomEnabled: true,
+		animationEnabled: true,
+		data: data
+	};
+	$("#chartContainer").CanvasJSChart(options);
+})
+
+
+
+
+
+})
+</script>
+
+</head>
+<body>
+
+	<div class="wrapper">
+		<label>
+			<h4>Enter Number</h4>
+			<input type="number" placeholder="number">
+		</label>
+
+		<div>
+			<p>Chart</p>
+			<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+		</div>
+
+		<div>
+			<p>Result</p>
+			<div class="result"></div>
+		</div>
+	</div>
+
+	
+</body>
+</html>
